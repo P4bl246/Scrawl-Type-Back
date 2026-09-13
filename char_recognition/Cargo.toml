@@ -1,0 +1,9 @@
+[package]
+name = "char_recognition"
+version = "0.1.0"
+edition = "2024"
+license = "BSD-3-Clause"
+license-file = "LICENSE"
+
+[dependencies]
+q-recognizer = "0.1.1"
