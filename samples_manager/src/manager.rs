@@ -26,9 +26,7 @@ pub struct GesturesManager {
     gestures: Vec<Gesture>,
     raw_points_buffer: Vec<PointWrapper>, // fixed-length, reused across gestures
     counter: usize,                // current write position in the buffer
-    stroke_cnt: i32,
-    shape_name: String,
-    shapes: Vec<String>
+    stroke_cnt: i32
 }
 
 #[wasm_bindgen]
@@ -41,19 +39,12 @@ impl GesturesManager {
             // works right away and the same buffer can be reused.
             raw_points_buffer: vec![PointWrapper::default(); buffer_size],
             counter: 0,
-            stroke_cnt: 0,
-            shape_name: String::new(),
-            shapes: Vec::new()
+            stroke_cnt: 0
         }
     }
 
     // Starts recording a new stroke for the given shape.
-    pub fn start_gesture(&mut self, shape_name: &str) {
-        if !self.shapes.contains(&shape_name.to_string()) {
-                self.shapes.push(shape_name.to_string());
-        }
-
-        self.shape_name = shape_name.to_owned();
+    pub fn start_gesture(&mut self) {
         self.stroke_cnt += 1;
     }
 
@@ -108,9 +99,9 @@ impl GesturesManager {
     }
 
   
-    pub fn take_gesture(&self)->GestureWrapper{
+    pub fn take_gesture(&self, name:&str)->GestureWrapper{
         let points = self.raw_points_buffer[..self.counter-1].to_vec();
-        GestureWrapper::new(points, &self.shape_name)
+        GestureWrapper::new(points, name)
     }
 
     
