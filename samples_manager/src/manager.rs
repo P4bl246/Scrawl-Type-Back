@@ -96,6 +96,11 @@ impl GesturesManager {
             self.counter +=1;
             self.raw_points_buffer.push(PointWrapper::default());
         }
+        if self.counter == 1{
+            let s = PointWrapper::new(self.raw_points_buffer[0].get_x()+1.0, self.raw_points_buffer[0].get_y()+1.0, self.raw_points_buffer[0].get_id());
+            self.raw_points_buffer.push(s);
+            self.counter +=1;
+        }
         let points = self.raw_points_buffer[..self.counter-1].to_vec();
         let mut gesture = GestureWrapper::new(points, name);
         gesture.set_points_raw(Vec::new()); // release the memory allocated to store the raw points

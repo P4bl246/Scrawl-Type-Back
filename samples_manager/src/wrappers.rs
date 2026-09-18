@@ -9,6 +9,9 @@ pub trait InnerPoint {
     fn inner(self) -> Point;
     fn set_x(&mut self, new:f32);
     fn set_y(&mut self, new:f32);
+    fn get_x(&self)->f32;
+    fn get_y(&self)->f32;
+    fn get_id(&self)->i32;
     fn set_stroke_id(&mut self, new:i32);
 }
 
@@ -22,6 +25,9 @@ impl InnerPoint for PointWrapper {
     fn inner(self) -> Point {self.inner}
     fn set_x(&mut self, new:f32){self.inner.x=new;}
     fn set_y(&mut self, new:f32){self.inner.y=new;}
+    fn get_x(&self)->f32{self.inner.x}
+    fn get_y(&self)->f32{self.inner.y}
+    fn get_id(&self)->i32{self.inner.stroke_id}
     fn set_stroke_id(&mut self, new:i32){self.inner.stroke_id=new;}
 }
 
