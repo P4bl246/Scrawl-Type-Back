@@ -92,6 +92,10 @@ impl GesturesManager {
     // gesture; the rest of the buffer may still hold stale data
     // from a previous recording.
     pub fn add_gesture(&mut self, name: &str) {
+        if self.counter == 0{
+            self.counter +=1;
+            self.raw_points_buffer.push(PointWrapper::default());
+        }
         let points = self.raw_points_buffer[..self.counter-1].to_vec();
         let mut gesture = GestureWrapper::new(points, name);
         gesture.set_points_raw(Vec::new()); // release the memory allocated to store the raw points
